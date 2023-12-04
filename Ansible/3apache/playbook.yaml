@@ -1,0 +1,30 @@
+---
+
+- name: Установка apatch на back1 и back2
+  hosts: all
+  roles:
+    - install
+  become: true
+  become_method: sudo
+  remote_user: root
+  gather_facts: false
+
+- name: Настройка back1
+  hosts: back1
+  roles:
+    - back1
+  become: true
+  become_method: sudo
+  remote_user: root
+  gather_facts: false
+
+- name: Настройка back2
+  hosts: back2
+  roles:
+    - back2
+  become: true
+  become_method: sudo
+  remote_user: root
+  gather_facts: false
+
+...

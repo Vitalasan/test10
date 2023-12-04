@@ -1,0 +1,17 @@
+---
+
+web1host: 172.16.0.2
+web2host: 172.16.0.3
+
+back1host: 172.16.0.4
+back2host: 172.16.0.5
+
+viphost: 172.16.0.10
+
+ansible1: 172.16.0.6
+
+ansible_user: test
+ansible_ssh_user: test
+ansible_ssh_pass: test
+
+...

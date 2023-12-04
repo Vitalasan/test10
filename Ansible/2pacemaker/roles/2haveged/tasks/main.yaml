@@ -1,0 +1,9 @@
+---
+
+- name: cp  authkey
+  become: true
+  template:
+    src: authkey
+    dest: /etc/corosync/authkey
+  
+...

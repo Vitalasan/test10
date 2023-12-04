@@ -1,0 +1,39 @@
+---
+
+- name: Установка и настройка балансировки
+  hosts: all
+  roles:
+    - 1pacemaker
+  become: true
+  become_method: sudo
+  remote_user: root
+  gather_facts: false
+
+- name: Ключ
+  hosts: web1
+  roles:
+    - 2haveged
+  become: true
+  become_method: sudo
+  remote_user: root
+  gather_facts: false
+
+- name: Запуск сервисов
+  hosts: all
+  roles:
+    - 3run
+  become: true
+  become_method: sudo
+  remote_user: root
+  gather_facts: false
+
+- name: Кластер и Вип
+  hosts: web1
+  roles:
+    - 4service
+  become: true
+  become_method: sudo
+  remote_user: root
+  gather_facts: false
+
+...

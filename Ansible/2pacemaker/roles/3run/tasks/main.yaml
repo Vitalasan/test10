@@ -1,0 +1,24 @@
+---
+
+- name: Start corosync
+  become: true
+  service:
+    name: corosync
+    state: started
+
+- name: update-rc.d pacemaker defaults 20 01
+  ansible.builtin.shell: update-rc.d pacemaker defaults 20 01
+
+- name: Start pacemaker
+  become: true
+  service:
+    name: pacemaker
+    state: started
+
+- name: Start nginx
+  become: true
+  service:
+    name: nginx
+    state: started
+
+...

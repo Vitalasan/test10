@@ -1,0 +1,53 @@
+---
+
+- name: Update apt
+  become: true
+  apt:
+    upgrade: yes
+    update_cache: yes
+
+- name: stopped nginx
+  become: true
+  service:
+    name: nginx
+    state: stopped
+
+- name: Install corosync
+  become: true
+  apt:
+    name=corosync
+    state=latest
+
+- name: Install pacemaker
+  become: true
+  apt:
+    name=pacemaker
+    state=latest
+
+- name: Install crmsh
+  become: true
+  apt:
+    name=crmsh
+    state=latest
+
+- name: stopped corosync
+  become: true
+  service:
+    name: corosync
+    state: stopped
+
+- name: stopped pacemaker
+  become: true
+  service:
+    name: pacemaker
+    state: stopped
+
+- name: Копирование corosync.conf
+  become: true
+  template:
+    src: corosync.conf
+    dest: /etc/corosync/corosync.conf
+  check_mode: false
+  changed_when: false
+
+...

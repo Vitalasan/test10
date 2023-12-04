@@ -1,0 +1,42 @@
+---
+
+- name: Update apt
+  become: true
+  apt:
+    upgrade: yes
+    update_cache: yes
+
+- name: Install required system packages
+  become: true
+  apt:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+        - curl
+        - gnupg
+        - ca-certificates
+        - lsb-release
+        - software-properties-common
+        - net-tools
+
+- name: Install apache
+  apt:
+    name=apache2
+    state=latest
+
+- name: Update /etc/hosts
+  ansible.builtin.shell: |
+    echo 172.16.0.2 web1 >> /etc/hosts
+    echo 172.16.0.3 web2 >> /etc/hosts
+    echo 172.16.0.4 back1 >> /etc/hosts
+    echo 172.16.0.5 back2 >> /etc/hosts
+    echo 172.16.0.10 VipLb >> /etc/hosts
+
+- name: started apache2
+  become: true
+  service:
+    name: apache2
+    state: started
+
+...

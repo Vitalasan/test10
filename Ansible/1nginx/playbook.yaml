@@ -1,0 +1,12 @@
+---
+
+- name: Установка nginx на web1 и web2
+  hosts: all
+  roles:
+    - install
+  become: true
+  become_method: sudo
+  remote_user: root
+  gather_facts: false
+
+...

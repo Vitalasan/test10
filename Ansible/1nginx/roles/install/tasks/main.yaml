@@ -1,0 +1,56 @@
+---
+
+- name: Update apt
+  become: true
+  apt:
+    upgrade: yes
+    update_cache: yes
+
+- name: Установка системных пакетов
+  become: true
+  apt:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+        - curl
+        - gnupg
+        - ca-certificates
+        - lsb-release
+        - software-properties-common
+        - net-tools
+
+- name: Install Nginx
+  apt:
+    name=nginx
+    state=latest
+
+- name: Nginx Configure | Register Nginx as a service
+  service:
+    name: nginx
+    enabled: yes
+
+- name: Update /etc/hosts
+  ansible.builtin.shell: |
+    echo 172.16.0.2 web1 >> /etc/hosts
+    echo 172.16.0.3 web2 >> /etc/hosts
+    echo 172.16.0.4 back1 >> /etc/hosts
+    echo 172.16.0.5 back2 >> /etc/hosts
+    echo 172.16.0.10 VipLb >> /etc/hosts
+
+- name: del /etc/nginx/sites-enabled/default
+  ansible.builtin.shell: |
+    rm /etc/nginx/sites-enabled/default
+  become: true
+
+- name: Copy VipLb.conf
+  become: true
+  template:
+    src: VipLb.conf
+    dest: /etc/nginx/conf.d/VipLb.conf
+  check_mode: false
+  changed_when: false
+  notify:
+    - restart nginx
+
+...
