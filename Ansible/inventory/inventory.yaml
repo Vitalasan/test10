@@ -1,0 +1,47 @@
+---
+all: # Все серверы в нашем inventory, all - обязателен
+  children: # Дочерние группы для all
+    webservis:
+      hosts:
+        172.16.0.2:
+        172.16.0.3:
+    web1: # Группа хостов с именем web1
+      hosts:
+        172.16.0.2:
+    web2:
+      hosts:
+        172.16.0.3:
+    backservis:
+      hosts:
+        172.16.0.4:
+        172.16.0.5:
+    back1:
+      hosts:
+        172.16.0.4:
+    back2:
+      hosts:
+        172.16.0.5:
+  vars:
+    ansible_user: root
+    ansible_ssh_user: root
+    ansible_ssh_pass: root
+
+    web1host: 172.16.0.2
+    web2host: 172.16.0.3
+
+    back1host: 172.16.0.4
+    back2host: 172.16.0.5
+
+    viphost: 172.16.0.10
+
+    ansible1: 172.16.0.6
+
+    packages:
+      - curl
+      - gnupg
+      - ca-certificates
+      - lsb-release
+      - software-properties-common
+      - net-tools
+
+#    ansible_become_pass: root

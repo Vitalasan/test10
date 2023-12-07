@@ -1,6 +1,6 @@
 ---
 
-- name: cp  authkey
+- name: cp authkey
   become: true
   template:
     src: authkey

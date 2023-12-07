@@ -58,7 +58,19 @@ services:
 
   ansible:
     container_name: ansible
-    user: root
+    user: root    
+    command: bash -c "
+        apt-get update -y
+        && apt install -y gcc libkrb5-dev
+        && apt install python3-pip -y
+        && apt install openssh-client -y
+        && apt install python3.10-venv -y
+        && apt install sshpass -y
+        && pip3 install --upgrade pip
+        && pip3 install --upgrade virtualenv
+        && pip3 install ansible
+        && /usr/sbin/sshd -D 
+      "
     build:
       context: .
       dockerfile: Dockerfile

@@ -11,14 +11,6 @@
   apt:
     name: "{{ packages }}"
     state: present
-  vars:
-    packages:
-        - curl
-        - gnupg
-        - ca-certificates
-        - lsb-release
-        - software-properties-common
-        - net-tools
 
 - name: Install Nginx
   apt:
@@ -32,11 +24,11 @@
 
 - name: Update /etc/hosts
   ansible.builtin.shell: |
-    echo 172.16.0.2 web1 >> /etc/hosts
-    echo 172.16.0.3 web2 >> /etc/hosts
-    echo 172.16.0.4 back1 >> /etc/hosts
-    echo 172.16.0.5 back2 >> /etc/hosts
-    echo 172.16.0.10 VipLb >> /etc/hosts
+    echo "{{ web1host }}" web1 >> /etc/hosts
+    echo "{{ web2host }}" web2 >> /etc/hosts
+    echo "{{ back1host }}" back1 >> /etc/hosts
+    echo "{{ back2host }}" back2 >> /etc/hosts
+    echo "{{ viphost }}" VipLb >> /etc/hosts
 
 - name: del /etc/nginx/sites-enabled/default
   ansible.builtin.shell: |
