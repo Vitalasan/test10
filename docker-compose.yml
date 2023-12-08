@@ -43,6 +43,7 @@ services:
     networks:
       app_net:
         ipv4_address: 172.16.0.4
+
   bec2:
     container_name: bec2
     user: root
@@ -69,11 +70,13 @@ services:
         && pip3 install --upgrade pip
         && pip3 install --upgrade virtualenv
         && pip3 install ansible
-        && /usr/sbin/sshd -D 
+        && /usr/sbin/sshd -D
       "
     build:
       context: .
       dockerfile: Dockerfile
+    volumes:
+      - ./Ansible:/Ansible
     restart: always
     ports:
       - "85:80"
